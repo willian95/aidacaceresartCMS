@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <div class="d-flex flex-column-fluid" id="dev-format">
+    <div class="d-flex flex-column-fluid" id="dev-mails">
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->
@@ -10,7 +10,7 @@
                 <!--begin::Header-->
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Formatos
+                        <h3 class="card-label">Correos Administrativos
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -79,7 +79,7 @@
                         </div>--}}
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#formatModal" @click="create()">
+                        <button @click="create()" href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#formatModal">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -90,7 +90,7 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>Nuevo Formato</button>
+                        </span>Nuevo Correo</button>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                             <thead>
                                 <tr >
                                     <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 250px;">Nombre</span>
+                                        <span style="width: 250px;">Email</span>
                                     </th>
 
                                     <th class="datatable-cell datatable-cell-sort">
@@ -112,13 +112,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="format in formats">
+                                <tr v-for="mail in mails">
                                     <td class="datatable-cell">
-                                        @{{ format.name }}
+                                        @{{ mail.email }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#formatModal" @click="edit(format)"><i class="far fa-edit"></i></button>
-                                        <button class="btn btn-secondary" @click="erase(format.id)"><i class="far fa-trash-alt"></i></button>
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#formatModal" @click="edit(mail)"><i class="far fa-edit"></i></button>
+                                        <button class="btn btn-secondary" @click="erase(mail.id)"><i class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -144,9 +144,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Formato</label>
-                            <input type="text" class="form-control" id="name" v-model="name">
-                            <small v-if="errors.hasOwnProperty('name')">@{{ errors['name'][0] }}</small>
+                            <label for="email">Correo</label>
+                            <input type="text" class="form-control" id="email" v-model="email">
+                            <small v-if="errors.hasOwnProperty('email')">@{{ errors['email'][0] }}</small>
                         </div>
                         
                     </div>
@@ -168,14 +168,14 @@
     <script>
         
         const app = new Vue({
-            el: '#dev-format',
+            el: '#dev-mails',
             data(){
                 return{
-                    modalTitle:"Nuevo formato",
-                    name:"",
-                    formatId:"",
+                    modalTitle:"Nuevo correo administrativo",
+                    email:"",
+                    emailId:"",
                     action:"create",
-                    formats:[],
+                    mails:[],
                     errors:[],
                     pages:0,
                     page:1,
@@ -186,23 +186,23 @@
                 
                 create(){
                     this.action = "create"
-                    this.name = ""
-                    this.formatId = ""
+                    this.email = ""
+                    this.emailId = ""
                 },
                 store(){
 
                     this.loading = true
-                    axios.post("{{ url('format/store') }}", {name: this.name})
+                    axios.post("{{ url('admin-email/store') }}", {email: this.email})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
 
                             swal({
                                 title: "Perfecto!",
-                                text: "Haz creado un formato!",
+                                text: "Haz creado un correo Administrativo!",
                                 icon: "success"
                             });
-                            this.name = ""
+                            this.email = ""
                             this.fetch()
                         }else{
 
@@ -211,6 +211,7 @@
                                 text: res.data.msg,
                                 icon: "error"
                             });
+
                         }
 
                     })
@@ -223,18 +224,18 @@
                 update(){
 
                     this.loading = true
-                    axios.post("{{ url('format/update') }}", {id: this.formatId, name: this.name})
+                    axios.post("{{ url('admin-email/update') }}", {id: this.emailId, email: this.email})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
 
                             swal({
                                 title: "Excelente!",
-                                text: "Has actualizado un formato!",
+                                text: "Haz actualizado un correo adminsitrativo!",
                                 icon: "success"
                             });
-                            this.name = ""
-                            this.formatId = ""
+                            this.email = ""
+                            this.emailId = ""
                             this.fetch()
                             
                         }else{
@@ -251,24 +252,24 @@
                     .catch(err => {
                         this.loading = false
                         this.errors = err.response.data.errors
+                        /*$.each(err.response.data.errors, function(key, value){
+                            alert(value)
+                        });*/
                     })
 
                 },
-                edit(format){
-                    this.modalTitle = "Editar formato"
+                edit(mail){
+                    this.modalTitle = "Editar correo administrativo"
                     this.action = "edit"
-                    this.name = format.name
-                    this.formatId = format.id
+                    this.email = mail.email
+                    this.emailId = mail.id
                 },
-                fetch(page = 1){
+                fetch(){
 
-                    this.page = page
-
-                    axios.get("{{ url('format/fetch') }}"+"/"+page)
+                    axios.get("{{ url('admin-email/fetch') }}")
                     .then(res => {
 
-                        this.formats = res.data.formats
-                        this.pages = Math.ceil(res.data.formatsCount / res.data.dataAmount)
+                        this.mails = res.data.mails
 
                     })
 
@@ -277,7 +278,7 @@
                     
                     swal({
                         title: "¿Estás seguro?",
-                        text: "Eliminarás este formato!",
+                        text: "Eliminarás este correo administrativo!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -285,7 +286,7 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             this.loading = true
-                            axios.post("{{ url('/format/delete/') }}", {id: id}).then(res => {
+                            axios.post("{{ url('/admin-email/delete/') }}", {id: id}).then(res => {
                                 this.loading = false
                                 if(res.data.success == true){
                                     swal({

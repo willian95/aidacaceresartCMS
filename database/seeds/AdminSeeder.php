@@ -12,12 +12,14 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = new App\User;
-        $user->name = "admin";
-        $user->email = "admin@gmail.com";
-        $user->password = bcrypt("12345678");
-        $user->role_id = "1";
-        $user->save();
+        if(User::where('role_id', 1)->count() == 0){
+            $user = new User;
+            $user->name = "admin";
+            $user->email = "admin@gmail.com";
+            $user->password = bcrypt("12345678");
+            $user->role_id = "1";
+            $user->save();
+        }
         
     }
 }

@@ -79,7 +79,7 @@
                         </div>--}}
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#categoryModal">
+                        <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#categoryModal" @click="create()">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -232,16 +232,18 @@
                             this.fetch()
                         }else{
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Lo sentimos!",
+                                text: res.data.msg,
+                                icon: "error"
+                            });
 
                         }
 
                     })
                     .catch(err => {
                         this.loading = false
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
+                        this.errors = err.response.data.errors
                     })
 
                 },
@@ -264,16 +266,18 @@
                             
                         }else{
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Lo sentimos!",
+                                text: res.data.msg,
+                                icon: "error"
+                            });
 
                         }
 
                     })
                     .catch(err => {
                         this.loading = false
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
+                        this.errors = err.response.data.errors
                     })
 
                 },
@@ -325,7 +329,11 @@
                                     this.fetch()
                                 }else{
 
-                                    alert(res.data.msg)
+                                    swal({
+                                        title: "Lo sentimos!",
+                                        text: res.data.msg,
+                                        icon: "error"
+                                    });
 
                                 }
 

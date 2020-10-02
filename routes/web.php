@@ -37,3 +37,12 @@ Route::post("format/store", "FormatController@store");
 Route::get("/format/fetch/{page}", "FormatController@fetch");
 Route::post("/format/update", "FormatController@update");
 Route::post("/format/delete", "FormatController@delete");
+
+Route::get("/admin-email", "AdminMailController@index")->name("admin.email");
+Route::post("admin-email/store", "AdminMailController@store");
+Route::get("/admin-email/fetch", "AdminMailController@fetch");
+Route::post("/admin-email/update", "AdminMailController@update");
+Route::post("/admin-email/delete", "AdminMailController@delete");
+
+Route::get("/clients", "UserController@index")->name("client");
+Route::get("/clients/fetch/{page}", "UserController@fetch");
