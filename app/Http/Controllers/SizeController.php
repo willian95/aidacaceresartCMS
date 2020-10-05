@@ -13,6 +13,10 @@ class SizeController extends Controller
         return view("sizes.index");
     }
 
+    function all(){
+        return response()->json(["sizes" => Size::all()]);
+    }
+
     function store(SizeStoreRequest $request){
 
         try{

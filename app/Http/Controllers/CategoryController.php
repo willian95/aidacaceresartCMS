@@ -16,6 +16,12 @@ class CategoryController extends Controller
         return view("categories.index");
     }
 
+    function all(){
+        
+        return response()->json(["categories" => Category::all()]);
+
+    }
+
     function store(CategoryStoreRequest $request){
 
         try{

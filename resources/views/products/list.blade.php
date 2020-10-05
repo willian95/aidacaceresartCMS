@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <div class="d-flex flex-column-fluid" id="dev-format">
+    <div class="d-flex flex-column-fluid" id="dev-product-list">
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->
@@ -10,7 +10,7 @@
                 <!--begin::Header-->
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Formatos
+                        <h3 class="card-label">Productos
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -79,7 +79,7 @@
                         </div>--}}
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#formatModal" @click="create()">
+                        <a href="{{ route('product.create') }}" class="btn btn-primary font-weight-bolder">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -90,7 +90,7 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>Nuevo Formato</button>
+                        </span>Nuevo producto</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -103,22 +103,35 @@
                             <thead>
                                 <tr >
                                     <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 250px;">Nombre</span>
+                                        <span style="width: 250px;">Titulo</span>
                                     </th>
 
+                                    <th class="datatable-cell datatable-cell-sort">
+                                        <span style="width: 250px;">Categoría</span>
+                                    </th>
+
+                                    <th class="datatable-cell datatable-cell-sort" style="width: 250px;">
+                                        <span style="width: 130px;">Imagen</span>
+                                    </th>
                                     <th class="datatable-cell datatable-cell-sort">
                                         <span style="width: 130px;">Acciones</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="format in formats">
+                                <tr v-for="product in products">
                                     <td class="datatable-cell">
-                                        @{{ format.name }}
+                                        @{{ product.name }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#formatModal" @click="edit(format)"><i class="far fa-edit"></i></button>
-                                        <button class="btn btn-secondary" @click="erase(format.id)"><i class="far fa-trash-alt"></i></button>
+                                        @{{ product.category.name }}
+                                    </td>
+                                    <td>
+                                        <img :src="product.image" alt="" style="width: 100%;">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info" :href="'{{ url('/') }}'+'/products/edit/'+product.id"><i class="far fa-edit"></i></a>
+                                        <button class="btn btn-secondary" @click="erase(product.id)"><i class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -148,7 +161,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                     <!--end: Datatable-->
                 </div>
@@ -157,33 +169,6 @@
             <!--end::Card-->
         </div>
         <!--end::Container-->
-
-        <!-- Modal-->
-        <div class="modal fade" id="formatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i aria-hidden="true" class="ki ki-close"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Formato</label>
-                            <input type="text" class="form-control" id="name" v-model="name">
-                            <small v-if="errors.hasOwnProperty('name')">@{{ errors['name'][0] }}</small>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary font-weight-bold"  @click="store()" v-if="action == 'create'">Crear</button>
-                        <button type="button" class="btn btn-primary font-weight-bold"  @click="update()" v-if="action == 'edit'">Actualizar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 
@@ -194,15 +179,10 @@
     <script>
         
         const app = new Vue({
-            el: '#dev-format',
+            el: '#dev-product-list',
             data(){
                 return{
-                    modalTitle:"Nuevo formato",
-                    name:"",
-                    formatId:"",
-                    action:"create",
-                    formats:[],
-                    errors:[],
+                    products:[],
                     pages:0,
                     page:1,
                     loading:false
@@ -210,100 +190,25 @@
             },
             methods:{
                 
-                create(){
-                    this.action = "create"
-                    this.name = ""
-                    this.formatId = ""
-                },
-                store(){
-
-                    this.loading = true
-                    axios.post("{{ url('format/store') }}", {name: this.name})
-                    .then(res => {
-                        this.loading = false
-                        if(res.data.success == true){
-
-                            swal({
-                                title: "Perfecto!",
-                                text: "Haz creado un formato!",
-                                icon: "success"
-                            });
-                            this.name = ""
-                            this.fetch()
-                        }else{
-
-                            swal({
-                                title: "Lo sentimos!",
-                                text: res.data.msg,
-                                icon: "error"
-                            });
-                        }
-
-                    })
-                    .catch(err => {
-                        this.loading = false
-                        this.errors = err.response.data.errors
-                    })
-
-                },
-                update(){
-
-                    this.loading = true
-                    axios.post("{{ url('format/update') }}", {id: this.formatId, name: this.name})
-                    .then(res => {
-                        this.loading = false
-                        if(res.data.success == true){
-
-                            swal({
-                                title: "Excelente!",
-                                text: "Has actualizado un formato!",
-                                icon: "success"
-                            });
-                            this.name = ""
-                            this.formatId = ""
-                            this.fetch()
-                            
-                        }else{
-
-                            swal({
-                                title: "Lo sentimos!",
-                                text: res.data.msg,
-                                icon: "error"
-                            });
-
-                        }
-
-                    })
-                    .catch(err => {
-                        this.loading = false
-                        this.errors = err.response.data.errors
-                    })
-
-                },
-                edit(format){
-                    this.modalTitle = "Editar formato"
-                    this.action = "edit"
-                    this.name = format.name
-                    this.formatId = format.id
-                },
                 fetch(page = 1){
 
                     this.page = page
 
-                    axios.get("{{ url('format/fetch') }}"+"/"+page)
+                    axios.get("{{ url('/products/fetch/') }}"+"/"+page)
                     .then(res => {
 
-                        this.formats = res.data.formats
-                        this.pages = Math.ceil(res.data.formatsCount / res.data.dataAmount)
+                        this.products = res.data.products
+                        this.pages = Math.ceil(res.data.productsCount / res.data.dataAmount)
 
                     })
+                    
 
                 },
                 erase(id){
-                    
+
                     swal({
                         title: "¿Estás seguro?",
-                        text: "Eliminarás este formato!",
+                        text: "Eliminarás este producto!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -311,12 +216,12 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             this.loading = true
-                            axios.post("{{ url('/format/delete/') }}", {id: id}).then(res => {
+                            axios.post("{{ url('/products/delete/') }}", {id: id}).then(res => {
                                 this.loading = false
                                 if(res.data.success == true){
                                     swal({
                                         title: "Genial!",
-                                        text: "Formato eliminado!",
+                                        text: "Producto eliminado!",
                                         icon: "success"
                                     });
                                     this.fetch()
@@ -330,26 +235,10 @@
 
                                 }
 
-                            }).catch(err => {
-                                this.loading = false
-                                $.each(err.response.data.errors, function(key, value){
-                                    alert(value)
-                                });
                             })
 
                         }
                     });
-
-                },
-                toggleMenu(){
-
-                    if(this.showMenu == false){
-                        $("#menu").addClass("show")
-                        this.showMenu = true
-                    }else{
-                        $("#menu").removeClass("show")
-                        this.showMenu = false
-                    }
 
                 }
 

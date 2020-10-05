@@ -13,6 +13,10 @@ class FormatController extends Controller
         return view("format.index");
     }
 
+    function all(){
+        return response()->json(["formats" => Format::all()]);
+    }
+
     function store(FormatStoreRequest $request){
 
 

@@ -145,7 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
 												</span>
 											</li>
 											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
+												<a href="{{ route('product.create') }}" class="menu-link">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -153,7 +153,7 @@ License: You must have a valid license purchased only from themeforest(the above
 												</a>
 											</li>
 											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
+												<a href="{{ route('product.list') }}" class="menu-link">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -163,120 +163,14 @@ License: You must have a valid license purchased only from themeforest(the above
 										</ul>
 									</div>
 								</li>
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-									<a href="javascript:;" class="menu-link menu-toggle">
-										<i class="menu-icon flaticon2-laptop"></i>
-										<span class="menu-text">Pages</span>
-										<i class="menu-arrow"></i>
+
+								<li class="menu-item" aria-haspopup="true">
+									<a href="{{ route('logout') }}" class="menu-link">
+										<i class="menu-icon flaticon-web"></i>
+										<span class="menu-text">Cerrar Sesión</span>
 									</a>
-									<div class="menu-submenu">
-										<i class="menu-arrow"></i>
-										<ul class="menu-subnav">
-											<li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">Pages</span>
-												</span>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Reports</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Apps</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Downloads</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Tasks</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Events</span>
-												</a>
-											</li>
-										</ul>
-									</div>
 								</li>
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-									<a href="javascript:;" class="menu-link menu-toggle">
-										<i class="menu-icon flaticon2-browser-2"></i>
-										<span class="menu-text">Reports</span>
-										<i class="menu-arrow"></i>
-									</a>
-									<div class="menu-submenu">
-										<i class="menu-arrow"></i>
-										<ul class="menu-subnav">
-											<li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">Reports</span>
-												</span>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Cases</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Messages</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Reports</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Calendar</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="#" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">FAQ</span>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</li>
+
 								
 							</ul>
 							<!--end::Menu Nav-->
@@ -307,11 +201,11 @@ License: You must have a valid license purchased only from themeforest(the above
 								<!--begin::User-->
 								<div class="topbar-item">
 									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
-										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-										<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
-										<span class="symbol symbol-35 symbol-light-success">
-											<span class="symbol-label font-size-h5 font-weight-bold">S</span>
-										</span>
+										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hola,</span>
+										<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ \Auth::user()->name }}</span>
+										<!--<span class="symbol symbol-35 symbol-light-success">
+											<span class="symbol-label font-size-h5 font-weight-bold"></span>
+										</span>-->
 									</div>
 								</div>
 								<!--end::User-->

@@ -21,7 +21,7 @@ class UserController extends Controller
             $users = User::skip($skip)->where("role_id", 2)->take($dataAmount)->get();
             $usersCount = User::where("role_id", 2)->count();
 
-            return response()->json(["success" => true, "clients" => $users, "clientsCount" => $usersCount]);
+            return response()->json(["success" => true, "clients" => $users, "clientsCount" => $usersCount, "dataAmount" => $dataAmount]);
 
         }catch(\Exception $e){
 
