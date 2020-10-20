@@ -32,6 +32,37 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+
+		<style>
+
+			.loader-cover-custom{
+				position: fixed;
+				left:0;
+				right: 0;
+				z-index: 99999999;
+				background-color: rgba(0, 0, 0, 0.6);
+				top: 0;
+				bottom: 0;
+			}
+
+			.loader-custom {
+				margin-top:45vh;
+				margin-left: 45%;
+				border: 16px solid #f3f3f3; /* Light grey */
+				border-top: 16px solid #3498db; /* Blue */
+				border-radius: 50%;
+				width: 120px;
+				height: 120px;
+				animation: spin 2s linear infinite;
+			}
+			
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+
+		</style>
+
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -127,6 +158,13 @@ License: You must have a valid license purchased only from themeforest(the above
 									<a href="{{ route('client') }}" class="menu-link">
 										<i class="menu-icon flaticon-web"></i>
 										<span class="menu-text">Clientes</span>
+									</a>
+								</li>
+
+								<li class="menu-item" aria-haspopup="true">
+									<a href="{{ route('newsletter') }}" class="menu-link">
+										<i class="menu-icon flaticon-web"></i>
+										<span class="menu-text">Newsletter</span>
 									</a>
 								</li>
 

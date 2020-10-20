@@ -8,7 +8,7 @@
                 style="background-image: url('https://images.unsplash.com/photo-1557827999-c0bb00bbee13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=755&q=80');">
 
 
-                <p>Bienvenido a Aromantica CMS</p>
+                <p>Bienvenido a Aidacaceres CMS</p>
             </div>
             <div class="login100-form validate-form col-md-6">
                 <span class="login100-form-title p-b-43">

@@ -58,3 +58,6 @@ Route::post("/products/delete", "ProductController@delete");
 Route::post("/products/update", "ProductController@update");
 Route::get("/products/fetch/{page}", "ProductController@fetch");
 Route::get("/products/edit/{id}", "ProductController@edit");
+
+Route::get("/newsletter", "NewsLetterController@index")->name("newsletter");
+Route::post("/newsletter/store", "NewsLetterController@store");
