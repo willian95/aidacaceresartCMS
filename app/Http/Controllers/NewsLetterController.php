@@ -39,7 +39,7 @@ class NewsLetterController extends Controller
             return response()->json(["success" => true, "msg" => "Newsletter creado"]);
 
         }catch(\Exception $e){
-            return response()->json(["success" => false, "msg" => "hubo un problema"]);
+            return response()->json(["success" => false, "msg" => "hubo un problema", "err" => $e->getMessage(), "ln" => $e->getLine()]);
         }
 
     }
