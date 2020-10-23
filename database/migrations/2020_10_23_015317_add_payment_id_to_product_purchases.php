@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRecoveryHashToUsers extends Migration
+class AddPaymentIdToProductPurchases extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddRecoveryHashToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string("recovery_hash")->nullable();
+        Schema::table('product_purchases', function (Blueprint $table) {
+            $table->unsignedBigInteger("payment_id");
+
+            $table->foreign("payment_id")->references("id")->on("payments");
+
         });
     }
 
@@ -25,8 +28,8 @@ class AddRecoveryHashToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn("recovery_hash");
+        Schema::table('product_purchases', function (Blueprint $table) {
+            //
         });
     }
 }

@@ -5,14 +5,14 @@
 
         <div class="row">
             <div class="login100-more mask col-md-6"
-                style="background-image: url('https://images.unsplash.com/photo-1557827999-c0bb00bbee13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=755&q=80');">
+                style="background-image: url('https://www.aidacaceresart.com/comingSoon/img/MC_CCN0779.jpg');">
 
 
                 <p>Bienvenido a Aidacaceres CMS</p>
             </div>
             <div class="login100-form validate-form col-md-6">
                 <span class="login100-form-title p-b-43">
-                    <img class="logo-admin" src="https://imgfz.com/i/0tkLDsf.png" alt="">
+                    <img class="logo-admin" src="https://www.aidacaceresart.com/assets/img/logo-blue.png" alt="">
                 </span>
 
 

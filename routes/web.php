@@ -61,3 +61,6 @@ Route::get("/products/edit/{id}", "ProductController@edit");
 
 Route::get("/newsletter", "NewsLetterController@index")->name("newsletter");
 Route::post("/newsletter/store", "NewsLetterController@store");
+
+Route::get("/sales", "SaleController@index")->name("sales");
+Route::get("/sales/fetch/{fetch}", "SaleController@fetch");
