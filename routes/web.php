@@ -64,3 +64,6 @@ Route::post("/newsletter/store", "NewsLetterController@store");
 
 Route::get("/sales", "SaleController@index")->name("sales");
 Route::get("/sales/fetch/{fetch}", "SaleController@fetch");
+
+Route::get("/home-video", "VideoController@index")->name("home.video");
+Route::post("/home-video/update", "VideoController@update");

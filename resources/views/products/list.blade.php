@@ -3,6 +3,7 @@
 @section("content")
 
     <div class="d-flex flex-column-fluid" id="dev-product-list">
+
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->

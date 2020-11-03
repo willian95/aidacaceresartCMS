@@ -169,6 +169,13 @@ License: You must have a valid license purchased only from themeforest(the above
 								</li>
 
 								<li class="menu-item" aria-haspopup="true">
+									<a href="{{ route('home.video') }}" class="menu-link">
+										<i class="menu-icon flaticon-web"></i>
+										<span class="menu-text">Home Video</span>
+									</a>
+								</li>
+
+								<li class="menu-item" aria-haspopup="true">
 									<a href="{{ route('sales') }}" class="menu-link">
 										<i class="menu-icon flaticon-web"></i>
 										<span class="menu-text">Ventas</span>

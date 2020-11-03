@@ -60,6 +60,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-2">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="showOnCarousel">
+                                <label class="form-check-label" for="exampleCheck1">Mostrar en Banner</label>
+                            </div>
+                        </div>
+
                         
 
 
@@ -324,6 +331,7 @@
                     formatErrors:[],
                     sizeErrors:[],
                     errors:[],
+                    showOnCarousel:false,
                     loading:false
                 }
             },
@@ -333,7 +341,7 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/store') }}", {name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description}).then(res => {
+                        axios.post("{{ url('/products/store') }}", {name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 

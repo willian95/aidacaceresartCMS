@@ -78,6 +78,7 @@ class ProductController extends Controller
             $product->description = $sanitizedDescription;
             $product->image = url('/').'/images/products/'.$fileName;
             $product->slug = $slug;
+            $product->show_on_carousel = $request->showOnCarousel;
             $product->save();
 
             foreach($request->productFormatSizes as $productFormatSize){
@@ -182,6 +183,7 @@ class ProductController extends Controller
             $product = Product::find($request->id);
             $product->name = $request->name;
             $product->category_id = $request->category;
+            $product->show_on_carousel = $request->showOnCarousel;
             $product->description = $sanitizedDescription;
             if($request->get("image") != null){
                 $product->image =  url('/').'/images/products/'.$fileName;

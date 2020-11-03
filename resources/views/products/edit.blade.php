@@ -60,6 +60,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-2">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="showOnCarousel">
+                                <label class="form-check-label" for="exampleCheck1">Mostrar en Banner</label>
+                            </div>
+                        </div>
+
                         
 
 
@@ -312,6 +319,7 @@
                     category:"{{ $product->category->id }}",
                     name:"{{ $product->name }}",
                     description:"{{ $product->description }}",
+                    showOnCarousel:JSON.parse("{!! $product->show_on_carousel !!}"),
                     action:"create",
                     pages:0,
                     page:1,
@@ -334,7 +342,7 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description}).then(res => {
+                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 
