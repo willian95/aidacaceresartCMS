@@ -101,16 +101,16 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Formato</th>
+                                        {{--<th>Formato</th>--}}
                                         <th>Tamaño</th>
-                                        <th>Precio</th>
+                                        <th>Precio en dolares</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(productFormatSize, index) in productFormatSizes">
                                         <td>@{{ index + 1 }}</td>
-                                        <td>@{{ productFormatSize.format.name }}</td>
+                                        {{--<td>@{{ productFormatSize.format.name }}</td>--}}
                                         <td>@{{ productFormatSize.size.width }}cm X @{{ productFormatSize.size.height }}cm</td>
                                         <td>$ @{{ number_format(productFormatSize.price, 2, ",", ".") }}</td>
                                         <td>
@@ -189,7 +189,7 @@
                     <div class="modal-body">
                         
                         <div class="row">
-                            <div class="col-md-4">
+                            {{--<div class="col-md-4">
                                 <div class="form-group">
                                     <label for="type">Formato</label>
                                     <div style="display:flex;">
@@ -201,7 +201,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--}}
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -508,6 +508,7 @@
                     axios.get("{{ url('/format/all') }}").then(res => {
     
                         this.formats = res.data.formats
+                        this.format =this.formats[0]
 
                     })
                 },
@@ -555,7 +556,7 @@
                         this.productFormatSizes.push({size: this.size, format: this.format, price: this.price})
 
                         this.size = ""
-                        this.format = ""
+                        //this.format = ""
                         this.price = ""
                     }else{
                         swal({

@@ -103,7 +103,7 @@
                                         <th>#</th>
                                         {{--<th>Formato</th>--}}
                                         <th>Tamaño</th>
-                                        <th>Precio</th>
+                                        <th>Precio en dolares</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -219,7 +219,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="price">Precio</label>
+                                    <label for="price">Precio en dolares</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" v-model="price" @keypress="isNumberDot($event)">
                                         <div class="input-group-append">
