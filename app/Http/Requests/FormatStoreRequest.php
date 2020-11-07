@@ -24,7 +24,8 @@ class FormatStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|unique:formats,name"
+            "name" => "required|unique:formats,name",
+            "nameEnglish" => "required"
         ];
     }
 
@@ -33,7 +34,8 @@ class FormatStoreRequest extends FormRequest
     {
         return [
             "name.required" => "Nombre es requerido",
-            "name.unique" => "Este nombre ya existe"
+            "name.unique" => "Este nombre ya existe",
+            "nameEnglish.required" => "Nombre en inglés es requerido"
         ];
     }
 }

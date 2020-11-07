@@ -15,9 +15,11 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             "name" => "required",
+            "nameEnglish" => "required",
             "category" => "required|integer|exists:categories,id",
             "image" => "required",
-            "description" => "required"
+            "description" => "required",
+            "descriptionEnglish" => "required"
         ];
     }
 
@@ -26,11 +28,13 @@ class ProductStoreRequest extends FormRequest
         return[
 
             "name.required" => "Titulo del producto es requerido",
+            "nameEnglish.required" => "Titulo en inglés del producto es requerido",
             "category.required" => "Categoría del producto es requerido",
             "category.integer" => "Categoría seleccionada no es válida",
             "category.exists" => "Categoría seleccionada no es válida",
             "image.required" => "Imagen del producto es requerido",
-            "description.required" => "Descripción es requerida"
+            "description.required" => "Descripción es requerida",
+            "descriptionEnglish.required" => "Descripción en inglés es requerido"
 
         ];
 

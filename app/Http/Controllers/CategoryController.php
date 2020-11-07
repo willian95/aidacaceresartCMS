@@ -60,6 +60,7 @@ class CategoryController extends Controller
 
             $category = new Category;
             $category->name = $request->name;
+            $category->english_name = $request->nameEnglish;
             $category->image = url('images/categories/').'/'.$fileName;
             $category->slug = $slug;
             $category->save();
@@ -131,6 +132,7 @@ class CategoryController extends Controller
                 
                 $category = Category::find($request->id);
                 $category->name = $request->name;
+                $category->english_name = $request->nameEnglish;
                 if($request->get('image') != null){
                     $category->image = url('images/categories/').'/'.$fileName;
                 }

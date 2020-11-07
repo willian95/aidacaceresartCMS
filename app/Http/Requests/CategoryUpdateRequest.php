@@ -24,14 +24,16 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required"
+            "name" => "required",
+            "nameEnglish" => "required"
         ];
     }
 
     public function messages()
     {
         return [
-            "name.required" => "El nombre de la categoría es requerido"
+            "name.required" => "El nombre de la categoría es requerido",
+            "nameEnglish.required" => "El nombre en inglés de la categoría es requerido"
         ];
     }
 }

@@ -25,6 +25,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             "name" => "required|unique:categories,name",
+            "nameEnglish" => "required",
             "image" => "required"
         ];
     }
@@ -35,6 +36,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             "name.required" => "Nombre es requerido",
             "name.unique" => "Este nombre ya existe",
+            "nameEnglish.required" => "Nombre een inglés es requerido",
             "image.required" => "imagen es requerida"
         ];
     }

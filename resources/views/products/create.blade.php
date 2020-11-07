@@ -28,6 +28,14 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="name">Titulo en inglés</label>
+                                <input type="text" class="form-control" v-model="nameEnglish">
+                                <small v-if="errors.hasOwnProperty('nameEnglish')">@{{ errors['nameEnglish'][0] }}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="category">Categoría</label>
                                 <div style="display:flex">
                                     <select id="category" class="form-control" v-model="category">
@@ -60,6 +68,14 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Descripción en inglés</label>
+                                <textarea v-model="descriptionEnglish" id="description" class="form-control" rows="3"></textarea>
+                                <small v-if="errors.hasOwnProperty('descriptionEnglish')">@{{ errors['descriptionEnglish'][0] }}</small>
+                            </div>
+                        </div>
+
                         <div class="col-md-2">
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="showOnCarousel">
@@ -85,7 +101,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Formato</th>
+                                        {{--<th>Formato</th>--}}
                                         <th>Tamaño</th>
                                         <th>Precio</th>
                                         <th>Acción</th>
@@ -94,7 +110,7 @@
                                 <tbody>
                                     <tr v-for="(productFormatSize, index) in productFormatSizes">
                                         <td>@{{ index + 1 }}</td>
-                                        <td>@{{ productFormatSize.format.name }}</td>
+                                        {{--<td>@{{ productFormatSize.format.name }}</td>--}}
                                         <td>@{{ productFormatSize.size.width }}cm X @{{ productFormatSize.size.height }}cm</td>
                                         <td>$ @{{ number_format(productFormatSize.price, 2, ",", ".") }}</td>
                                         <td>
@@ -173,7 +189,7 @@
                     <div class="modal-body">
                         
                         <div class="row">
-                            <div class="col-md-4">
+                            {{--<div class="col-md-4">
                                 <div class="form-group">
                                     <label for="type">Formato</label>
                                     <div style="display:flex;">
@@ -185,7 +201,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--}}
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -317,7 +333,9 @@
                     imagePreview:"",
                     category:"",
                     name:"",
+                    nameEnglish:"",
                     description:"",
+                    descriptionEnglish:"",
                     action:"create",
                     pages:0,
                     page:1,
@@ -341,7 +359,7 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/store') }}", {name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel}).then(res => {
+                        axios.post("{{ url('/products/store') }}", {name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 
@@ -489,6 +507,7 @@
                     axios.get("{{ url('/format/all') }}").then(res => {
     
                         this.formats = res.data.formats
+                        this.format = this.formats[0]
 
                     })
                 },
@@ -536,7 +555,7 @@
                         this.productFormatSizes.push({size: this.size, format: this.format, price: this.price})
 
                         this.size = ""
-                        this.format = ""
+                        //this.format = ""
                         this.price = ""
                     }else{
                         swal({

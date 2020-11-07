@@ -28,6 +28,14 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="name">Titulo en inglés</label>
+                                <input type="text" class="form-control" v-model="nameEnglish">
+                                <small v-if="errors.hasOwnProperty('nameEnglish')">@{{ errors['nameEnglish'][0] }}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="category">Categoría</label>
                                 <div style="display:flex">
                                     <select id="category" class="form-control" v-model="category">
@@ -57,6 +65,14 @@
                                 <label for="description">Descripción</label>
                                 <textarea v-model="description" id="description" class="form-control" rows="3"></textarea>
                                 <small v-if="errors.hasOwnProperty('description')">@{{ errors['description'][0] }}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Descripción en inglés</label>
+                                <textarea v-model="descriptionEnglish" id="description" class="form-control" rows="3"></textarea>
+                                <small v-if="errors.hasOwnProperty('descriptionEnglish')">@{{ errors['descriptionEnglish'][0] }}</small>
                             </div>
                         </div>
 
@@ -203,7 +219,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="price">Precio</label>
+                                    <label for="price">Precio en dolares</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" v-model="price" @keypress="isNumberDot($event)">
                                         <div class="input-group-append">
@@ -319,6 +335,8 @@
                     category:"{{ $product->category->id }}",
                     name:"{{ $product->name }}",
                     description:"{{ $product->description }}",
+                    nameEnglish:"{{ $product->english_name }}",
+                    descriptionEnglish:"{{ $product->english_description }}",
                     showOnCarousel:JSON.parse("{!! $product->show_on_carousel !!}"),
                     action:"create",
                     pages:0,
@@ -342,7 +360,7 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel}).then(res => {
+                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 

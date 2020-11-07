@@ -140,12 +140,12 @@ License: You must have a valid license purchased only from themeforest(the above
 									</a>
 								</li>
 
-								<li class="menu-item" aria-haspopup="true">
+								{{--<li class="menu-item" aria-haspopup="true">
 									<a href="{{ route('format') }}" class="menu-link">
 										<i class="menu-icon flaticon-web"></i>
 										<span class="menu-text">Formatos</span>
 									</a>
-								</li>
+								</li>--}}
 
 								<li class="menu-item" aria-haspopup="true">
 									<a href="{{ route('admin.email') }}" class="menu-link">

@@ -25,6 +25,7 @@ class FormatController extends Controller
 
             $format = new Format;
             $format->name = $request->name;
+            $format->english_name = $request->nameEnglish;
             $format->save();
 
             return response()->json(["success" => true, "msg" => "Formato creada"]);
@@ -65,6 +66,7 @@ class FormatController extends Controller
                 
                 $format = Format::find($request->id);
                 $format->name = $request->name;
+                $format->english_name = $request->nameEnglish;
                 $format->update();
 
                 return response()->json(["success" => true, "msg" => "Formato actualizado"]);

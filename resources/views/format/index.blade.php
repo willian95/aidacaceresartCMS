@@ -103,7 +103,10 @@
                             <thead>
                                 <tr >
                                     <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 250px;">Nombre</span>
+                                        <span style="width: 250px;">Nombre en español</span>
+                                    </th>
+                                    <th class="datatable-cell datatable-cell-sort">
+                                        <span style="width: 250px;">Nombre en inglés</span>
                                     </th>
 
                                     <th class="datatable-cell datatable-cell-sort">
@@ -115,6 +118,9 @@
                                 <tr v-for="format in formats">
                                     <td class="datatable-cell">
                                         @{{ format.name }}
+                                    </td>
+                                    <td class="datatable-cell">
+                                        @{{ format.english_name }}
                                     </td>
                                     <td>
                                         <button class="btn btn-info" data-toggle="modal" data-target="#formatModal" @click="edit(format)"><i class="far fa-edit"></i></button>
@@ -170,9 +176,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Formato</label>
+                            <label for="name">Formato en español</label>
                             <input type="text" class="form-control" id="name" v-model="name">
                             <small v-if="errors.hasOwnProperty('name')">@{{ errors['name'][0] }}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Formato en inglés</label>
+                            <input type="text" class="form-control" id="name" v-model="nameEnglish">
+                            <small v-if="errors.hasOwnProperty('nameEnglish')">@{{ errors['nameEnglish'][0] }}</small>
                         </div>
                         
                     </div>
@@ -199,6 +211,7 @@
                 return{
                     modalTitle:"Nuevo formato",
                     name:"",
+                    nameEnglish:"",
                     formatId:"",
                     action:"create",
                     formats:[],
@@ -213,12 +226,13 @@
                 create(){
                     this.action = "create"
                     this.name = ""
+                    this.nameEnglish = ""
                     this.formatId = ""
                 },
                 store(){
 
                     this.loading = true
-                    axios.post("{{ url('format/store') }}", {name: this.name})
+                    axios.post("{{ url('format/store') }}", {name: this.name, nameEnglish: this.nameEnglish})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
@@ -229,6 +243,7 @@
                                 icon: "success"
                             });
                             this.name = ""
+                            this.nameEnglish = ""
                             this.fetch()
                         }else{
 
@@ -249,7 +264,7 @@
                 update(){
 
                     this.loading = true
-                    axios.post("{{ url('format/update') }}", {id: this.formatId, name: this.name})
+                    axios.post("{{ url('format/update') }}", {id: this.formatId, name: this.name, nameEnglish: this.nameEnglish})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
@@ -261,6 +276,7 @@
                             });
                             this.name = ""
                             this.formatId = ""
+                            this.nameEnglish = ""
                             this.fetch()
                             
                         }else{
@@ -284,6 +300,7 @@
                     this.modalTitle = "Editar formato"
                     this.action = "edit"
                     this.name = format.name
+                    this.nameEnglish = format.english_name
                     this.formatId = format.id
                 },
                 fetch(page = 1){

@@ -102,16 +102,20 @@
                         <table class="table">
                             <thead>
                                 <tr >
-                                    <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 250px;">Nombre</span>
+                                    <th class="datatable-cell datatable-cell-sort" style="width: 170px;">
+                                        <span>Nombre en español</span>
+                                    </th>
+
+                                    <th class="datatable-cell datatable-cell-sort" style="width: 170px;">
+                                        <span>Nombre en ingles</span>
                                     </th>
 
                                     <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 250px;">Imagen</span>
+                                        <span>Imagen</span>
                                     </th>
 
-                                    <th class="datatable-cell datatable-cell-sort">
-                                        <span style="width: 130px;">Acciones</span>
+                                    <th class="datatable-cell datatable-cell-sort" style="width: 170px;">
+                                        <span>Acciones</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -119,6 +123,9 @@
                                 <tr v-for="category in categories">
                                     <td class="datatable-cell">
                                         @{{ category.name }}
+                                    </td>
+                                    <td class="datatable-cell">
+                                        @{{ category.english_name }}
                                     </td>
                                     <td>
                                         <img :src="category.image" alt="" style="width: 30%;">
@@ -176,9 +183,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Categoría</label>
+                            <label for="name">Categoría en español</label>
                             <input type="text" class="form-control" id="name" v-model="name">
                             <small v-if="errors.hasOwnProperty('name')">@{{ errors['name'][0] }}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Categoría en inglés</label>
+                            <input type="text" class="form-control" id="name" v-model="nameEnglish">
+                            <small v-if="errors.hasOwnProperty('name')">@{{ errors['nameEnglish'][0] }}</small>
                         </div>
                     
                         <div class="form-group">
@@ -213,6 +226,7 @@
                 return{
                     modalTitle:"Nueva categoría",
                     name:"",
+                    nameEnglish:"",
                     categoryId:"",
                     action:"create",
                     imagePreview:"",
@@ -230,13 +244,14 @@
                 create(){
                     this.action = "create"
                     this.name = ""
+                    this.nameEnglish = ""
                     this.categoryId = ""
                     this.picture = ""
                 },
                 store(){
 
                     this.loading = true
-                    axios.post("{{ url('category/store') }}", {name: this.name, image: this.picture})
+                    axios.post("{{ url('category/store') }}", {name: this.name, image: this.picture, nameEnglish: this.nameEnglish})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
@@ -248,6 +263,7 @@
                             });
                             this.name = ""
                             this.picture = ""
+                            this.nameEnglish = ""
                             this.imagePreview=""
                             this.fetch()
                         }else{
@@ -270,7 +286,7 @@
                 update(){
 
                     this.loading = true
-                    axios.post("{{ url('category/update') }}", {id: this.categoryId, name: this.name, image: this.picture})
+                    axios.post("{{ url('category/update') }}", {id: this.categoryId, name: this.name, image: this.picture, nameEnglish: this.nameEnglish})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
@@ -283,6 +299,7 @@
                             this.name = ""
                             this.categoryId = ""
                             this.picture = ""
+                            this.nameEnglish = ""
                             this.imagePreview=""
                             this.fetch()
                             
@@ -307,6 +324,7 @@
                     this.modalTitle = "Editar categoría"
                     this.action = "edit"
                     this.name = category.name
+                    this.nameEnglish = category.english_name
                     this.categoryId = category.id
                     this.imagePreview = category.image
 

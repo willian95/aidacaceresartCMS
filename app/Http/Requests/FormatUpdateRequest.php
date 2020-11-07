@@ -24,14 +24,16 @@ class FormatUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required"
+            "name" => "required",
+            "nameEnglish" => "required"
         ];
     }
 
     public function messages()
     {
         return [
-            "name.required" => "El nombre del formato es requerido"
+            "name.required" => "El nombre del formato es requerido",
+            "nameEnglish.required" => "Nombre en inglés es requerido"
         ];
     }
 }

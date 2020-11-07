@@ -71,11 +71,14 @@ class ProductController extends Controller
             }
 
             $sanitizedDescription = str_replace("\n", "", $request->description);
+            $sanitizedDescriptionEnglish = str_replace("\n", "", $request->descriptionEnglish);
 
             $product = new Product;
             $product->name = $request->name;
+            $product->english_name = $request->nameEnglish;
             $product->category_id = $request->category;
             $product->description = $sanitizedDescription;
+            $product->english_description = $sanitizedDescriptionEnglish;
             $product->image = url('/').'/images/products/'.$fileName;
             $product->slug = $slug;
             $product->show_on_carousel = $request->showOnCarousel;
@@ -91,7 +94,8 @@ class ProductController extends Controller
 
                 $productFormatSizeModel = new ProductFormatSize;
                 $productFormatSizeModel->product_id = $product->id;
-                $productFormatSizeModel->format_id = $productFormatSize["format"]["id"];
+                //$productFormatSizeModel->format_id = $productFormatSize["format"]["id"];
+                $productFormatSizeModel->format_id = 1;
                 $productFormatSizeModel->size_id = $productFormatSize["size"]["id"];
                 $productFormatSizeModel->price = $productFormatSize["price"];
                 $productFormatSizeModel->slug = $slug;
@@ -179,12 +183,15 @@ class ProductController extends Controller
         try{
 
             $sanitizedDescription = str_replace("\n", "", $request->description);
+            $sanitizedDescriptionEnglish = str_replace("\n", "", $request->descriptionEnglish);
 
             $product = Product::find($request->id);
             $product->name = $request->name;
+            $product->english_name = $request->nameEnglish;
             $product->category_id = $request->category;
             $product->show_on_carousel = $request->showOnCarousel;
             $product->description = $sanitizedDescription;
+            $product->english_description = $sanitizedDescriptionEnglish;
             if($request->get("image") != null){
                 $product->image =  url('/').'/images/products/'.$fileName;
             }
@@ -216,7 +223,8 @@ class ProductController extends Controller
                     if(ProductFormatSize::where("id", $productTypeSize["id"])->count() > 0){
                         $productType = ProductFormatSize::find($productTypeSize["id"]);
                         $productType->product_id = $product->id;
-                        $productType->format_id = $productTypeSize["format"]["id"];
+                        //$productType->format_id = $productTypeSize["format"]["id"];
+                        $productType->format_id = 1;
                         $productType->size_id = $productTypeSize["size"]["id"];
                         $productType->price = $productTypeSize["price"];
                         $productType->update();
@@ -232,7 +240,8 @@ class ProductController extends Controller
 
                     $productType = new ProductFormatSize;
                     $productType->product_id = $product->id;
-                    $productType->format_id = $productTypeSize["format"]["id"];
+                    //$productType->format_id = $productTypeSize["format"]["id"];
+                    $productType->format_id = 1;
                     $productType->size_id = $productTypeSize["size"]["id"];
                     $productType->price = $productTypeSize["price"];
                     $productType->slug = $slug;
