@@ -8,12 +8,14 @@
                 style="background-image: url('https://www.aidacaceresart.com/comingSoon/img/MC_CCN0779.jpg');">
 
 
-                <p>Bienvenido a Aidacaceres CMS</p>
+               <!---- <p>Bienvenido a Aidacaceres CMS</p>--->
             </div>
             <div class="login100-form validate-form col-md-6">
-                <span class="login100-form-title p-b-43">
+                <span class="login100-form-title p-b-43 pb-4">
                     <img class="logo-admin" src="https://www.aidacaceresart.com/assets/img/logo-blue.png" alt="">
                 </span>
+
+                <p> Content Management System </p>
 
 
                 <div class="wrap-input100 validate-input">
