@@ -115,7 +115,7 @@
                                 <tr v-for="(shopping, index) in shoppings">
                                     <th>@{{ shopping.order_id }}</th>
                                     <td v-if="shopping.user">@{{ shopping.user.name }}</td>
-                                    <td v-if="shopping.guest">@{{ shopping.guest.name }}</td>
+                                    <td v-if="shopping.guest_user">@{{ shopping.guest_user.name }}</td>
                                     <td style="text-transform: capitalize;">@{{ shopping.status }}</td>
                                     <td>$ @{{  currencyFormatDE(shopping.total) }}</td>
                                     <td>@{{ dateFormatter(shopping.created_at.toString().substring(0, 10)) }}</td>

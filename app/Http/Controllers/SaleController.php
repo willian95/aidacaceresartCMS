@@ -20,10 +20,10 @@ class SaleController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $shoppings = Payment::with("productPurchases", "user", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
+            $shoppings = Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
             ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")
             ->skip($skip)->take($dataAmount)->orderBy('id', 'desc')->get();
-            $shoppingsCount = Payment::with("productPurchases", "user", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
+            $shoppingsCount = Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
             ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);

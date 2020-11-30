@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\NewsLetterStoreRequest;
 use App\User;
+use App\NewsletterEmail;
 
 class NewsLetterController extends Controller
 {
@@ -18,9 +19,23 @@ class NewsLetterController extends Controller
         try{
 
             ini_set("MAX_EXECUTION_TIME", 0);
-
             $users = User::all();
-            $data = ["text" => $request->text, "title" => $request->title];
+
+            foreach($users as $user){
+
+                if($user->role_id == 2){
+                    $newsletter = new NewsletterEmail;
+                    $newsletter->title = $request->title;
+                    $newsletter->body = $request->text;
+                    $newsletter->recipient_email = $user->email;
+                    $newsletter->name = $user->name;
+                    $newsletter->save();
+                }
+
+            }
+
+
+            /*$data = ["text" => $request->text, "title" => $request->title];
             foreach($users as $user){
                 $to_name = $user->name;
                 $to_email = $user->email;
@@ -34,7 +49,7 @@ class NewsLetterController extends Controller
                 });
 
                 
-            }
+            }*/
 
             return response()->json(["success" => true, "msg" => "Newsletter creado"]);
 
