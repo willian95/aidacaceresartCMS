@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\NewsLetterStoreRequest;
 use App\User;
 use App\NewsletterEmail;
+use App\NewsletterUser;
 
 class NewsLetterController extends Controller
 {
@@ -32,6 +33,15 @@ class NewsLetterController extends Controller
                     $newsletter->save();
                 }
 
+            }
+
+            foreach(NewsletterUser::all() as $user){
+                $newsletter = new NewsletterEmail;
+                $newsletter->title = $request->title;
+                $newsletter->body = $request->text;
+                $newsletter->recipient_email = $user->email;
+                $newsletter->name = "Anónimo";
+                $newsletter->save();
             }
 
 
