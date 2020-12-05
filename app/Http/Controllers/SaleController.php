@@ -20,11 +20,22 @@ class SaleController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $shoppings = Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
-            ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")
-            ->skip($skip)->take($dataAmount)->orderBy('id', 'desc')->get();
-            $shoppingsCount = Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
-            ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")->count();
+            $query = Payment::with("productPurchases", "user", "guestUser")
+            ->with(['productPurchases.productFormatSize' => function ($q) {
+                $q->withTrashed();
+            }])
+            ->with(['productPurchases.productFormatSize.product' => function ($q) {
+                $q->withTrashed();
+            }])
+            ->with(['productPurchases.productFormatSize.format' => function ($q) {
+                $q->withTrashed();
+            }])
+            ->with(['productPurchases.productFormatSize.size' => function ($q) {
+                $q->withTrashed();
+            }])->skip($skip)->take($dataAmount)->orderBy('id', 'desc')->get();
+
+            $shoppings = $query->get();
+            $shoppingsCount = $query->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);
 

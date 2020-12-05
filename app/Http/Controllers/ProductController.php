@@ -118,8 +118,19 @@ class ProductController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $products = Product::skip($skip)->take($dataAmount)->with("category")->has("category")->with("productFormatSizes")->has("productFormatSizes")->with("productFormatSizes.product")->has("productFormatSizes.product")->with("productFormatSizes.size")->has("productFormatSizes.size")->with("productFormatSizes.format")->has("productFormatSizes.format")->get();
-            $productsCount = Product::with("productFormatSizes")->with("category")->has("category")->has("productFormatSizes")->with("productFormatSizes.product")->has("productFormatSizes.product")->with("productFormatSizes.size")->has("productFormatSizes.size")->with("productFormatSizes.format")->has("productFormatSizes.format")->count();
+            $query = Product::skip($skip)->take($dataAmount)
+            ->with(['category' => function ($q) {
+                $q->withTrashed();
+            }])->with(['productFormatSizes' => function ($q) {
+                $q->withTrashed();
+            }])->with(['productFormatSizes.size' => function ($q) {
+                $q->withTrashed();
+            }])->with(['productFormatSizes.format' => function ($q) {
+                $q->withTrashed();
+            }]);
+           
+            $products = $query->get();
+            $productsCount = $query->count();
 
             return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount, "dataAmount" => $dataAmount]);
 
@@ -131,7 +142,15 @@ class ProductController extends Controller
 
     function edit($id){
 
-        $product = Product::with("category")->has("category")->with("productFormatSizes")->has("productFormatSizes")->with("productFormatSizes.product")->has("productFormatSizes.product")->with("productFormatSizes.size")->has("productFormatSizes.size")->with("productFormatSizes.format")->has("productFormatSizes.format")->where("id", $id)->first();
+        $product = Product::with(['category' => function ($q) {
+            $q->withTrashed();
+        }])->with(['productFormatSizes' => function ($q) {
+            $q->withTrashed();
+        }])->with(['productFormatSizes.size' => function ($q) {
+            $q->withTrashed();
+        }])->with(['productFormatSizes.format' => function ($q) {
+            $q->withTrashed();
+        }])->where("id", $id)->first();
 
         return view("products.edit", ["product" => $product]);
 
