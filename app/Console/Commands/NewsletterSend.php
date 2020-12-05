@@ -55,7 +55,9 @@ class NewsletterSend extends Command
             });
 
                 
-            
+            $news = NewsletterEmail::where("id", $newsletter->id)->first();
+            $news->sended = 1;
+            $news->update();
 
         }
 
