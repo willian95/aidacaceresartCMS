@@ -274,7 +274,7 @@
                 },
                 update(){
                     this.loading = true
-                    axios.post("{{ url('size/update') }}", {id: this.sizeId, height: this.name, width: this.width})
+                    axios.post("{{ url('size/update') }}", {id: this.sizeId, height: this.height, width: this.width})
                     .then(res => {
                         this.loading = false
                         if(res.data.success == true){
