@@ -125,8 +125,6 @@ class ProductController extends Controller
                 $q->withTrashed();
             }])->with(['productFormatSizes.size' => function ($q) {
                 $q->withTrashed();
-            }])->with(['productFormatSizes.format' => function ($q) {
-                $q->withTrashed();
             }]);
            
             $products = $query->get();
@@ -147,8 +145,6 @@ class ProductController extends Controller
         }])->with(['productFormatSizes' => function ($q) {
             $q->withTrashed();
         }])->with(['productFormatSizes.size' => function ($q) {
-            $q->withTrashed();
-        }])->with(['productFormatSizes.format' => function ($q) {
             $q->withTrashed();
         }])->where("id", $id)->first();
 
