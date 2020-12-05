@@ -44,7 +44,7 @@ class NewsletterSend extends Command
             $data = ["text" => $newsletter->text, "title" => $newsletter->title];
           
             $to_name = $newsletter->name;
-            $to_email = $newsletter->email;
+            $to_email = $newsletter->recipient_email;
             
 
             \Mail::send("emails.newsletter", $data, function($message) use ($to_name, $to_email, $newsletter) {
