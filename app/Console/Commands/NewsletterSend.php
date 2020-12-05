@@ -41,7 +41,7 @@ class NewsletterSend extends Command
         
         foreach(NewsletterEmail::where("sended", 0)->get() as $newsletter){
 
-            $data = ["text" => $newsletter->text, "title" => $newsletter->title];
+            $data = ["body" => $newsletter->body, "title" => $newsletter->title];
           
             $to_name = $newsletter->name;
             $to_email = $newsletter->recipient_email;
