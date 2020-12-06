@@ -32,10 +32,10 @@ class SaleController extends Controller
             }])
             ->with(['productPurchases.productFormatSize.size' => function ($q) {
                 $q->withTrashed();
-            }])->skip($skip)->take($dataAmount)->orderBy('id', 'desc')->get();
+            }])->orderBy('id', 'desc');
 
             $shoppings = $query->get();
-            $shoppingsCount = $query->count();
+            $shoppingsCount = $query->skip($skip)->take($dataAmount)->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);
 

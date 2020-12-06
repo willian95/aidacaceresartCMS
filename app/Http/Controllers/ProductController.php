@@ -118,8 +118,7 @@ class ProductController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $query = Product::skip($skip)->take($dataAmount)
-            ->with(['category' => function ($q) {
+            $query = Product::with(['category' => function ($q) {
                 $q->withTrashed();
             }])->with(['productFormatSizes' => function ($q) {
                 $q->withTrashed();
@@ -127,7 +126,7 @@ class ProductController extends Controller
                 $q->withTrashed();
             }]);
            
-            $products = $query->get();
+            $products = $query->skip($skip)->take($dataAmount)->get();
             $productsCount = $query->count();
 
             return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount, "dataAmount" => $dataAmount]);

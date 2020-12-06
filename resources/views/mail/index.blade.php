@@ -3,6 +3,9 @@
 @section("content")
 
     <div class="d-flex flex-column-fluid" id="dev-mails">
+        <div class="loader-cover-custom" v-if="loading == true">
+			<div class="loader-custom"></div>
+		</div>
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->

@@ -3,6 +3,9 @@
 @section("content")
 
     <div class="d-flex flex-column-fluid" id="dev-sales">
+        <div class="loader-cover-custom" v-if="loading == true">
+			<div class="loader-custom"></div>
+		</div>
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->
@@ -233,7 +236,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -255,6 +258,7 @@
                     shoppings:[],
                     pages:0,
                     page:1,
+                    loading:false,
                     showMenu:false
                 }
             },
@@ -269,10 +273,12 @@
                 fetch(page = 1){
 
                     this.page = page
+                    this.loading= false
 
                     axios.get("{{ url('/sales/fetch/') }}"+"/"+page)
                     .then(res => {
 
+                        this.loading= true
                         this.shoppings = res.data.shoppings
                         this.pages = Math.ceil(res.data.shoppingsCount / 20)
 

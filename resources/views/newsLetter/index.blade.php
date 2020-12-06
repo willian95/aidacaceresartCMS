@@ -33,6 +33,9 @@
                         <div class="loader-cover-custom" v-if="loading == true">
                             <div class="loader-custom"></div>
                         </div>
+                        <div class="loader-cover-custom" v-if="loading == true">
+                            <div class="loader-custom"></div>
+                        </div>
                         <p class="text-center">
                             <button class="btn btn-primary" @click="create()">Crear</button>
                         </p>
