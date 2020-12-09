@@ -273,12 +273,12 @@
                 fetch(page = 1){
 
                     this.page = page
-                    this.loading= false
+                    this.loading= true
 
                     axios.get("{{ url('/sales/fetch/') }}"+"/"+page)
                     .then(res => {
 
-                        this.loading= true
+                        this.loading= false
                         this.shoppings = res.data.shoppings
                         this.pages = Math.ceil(res.data.shoppingsCount / 20)
 
