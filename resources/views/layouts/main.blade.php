@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--begin::Head-->
 	<head><base href="../../../">
 		<meta charset="utf-8" />
-		<title>List Datatable | Keenthemes</title>
+		<title>AIDA CMS</title>
 		<meta name="description" content="User datatable listing" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<link rel="canonical" href="https://keenthemes.com/metronic" />
@@ -31,7 +31,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Global Theme Styles-->
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
-		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<!--<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />-->
+		<link rel="icon" type="image/png" href="https://www.aidacaceresart.com/comingSoon/img/favicon.jpeg" />
 
 		<style>
 
@@ -253,7 +254,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<!--begin::User-->
 								<div class="topbar-item">
 									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
-										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hola,</span>
+										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hello,</span>
 										<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ \Auth::user()->name }}</span>
 										<!--<span class="symbol symbol-35 symbol-light-success">
 											<span class="symbol-label font-size-h5 font-weight-bold"></span>
@@ -280,8 +281,8 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted font-weight-bold mr-2">2020©</span>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Keenthemes</a>
+								<span class="text-muted font-weight-bold mr-2">2020 - 2021©</span>
+								<a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Aida Caceres Art Copyright</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Nav-->
