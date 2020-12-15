@@ -20,24 +20,31 @@ class SaleController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $query = Payment::with("productPurchases", "user", "guestUser")
+            $shoppings = Payment::with("productPurchases", "user", "guestUser")
             ->with(['productPurchases.productFormatSize' => function ($q) {
                 $q->withTrashed();
             }])
             ->with(['productPurchases.productFormatSize.product' => function ($q) {
                 $q->withTrashed();
             }])
-            ->with(['productPurchases.productFormatSize.format' => function ($q) {
-                $q->withTrashed();
-            }])
+            ->with('productPurchases.productFormatSize.format')
             ->with(['productPurchases.productFormatSize.size' => function ($q) {
                 $q->withTrashed();
-            }])->orderBy('id', 'desc')->get();
+            }])->orderBy('id', 'desc')->skip($skip)->take($dataAmount)->get();
 
-            $shoppings = $query->get();
-            $shoppingsCount = $query->skip($skip)->take($dataAmount)->count();
+            $shoppingsCount = Payment::with("productPurchases", "user", "guestUser")
+            ->with(['productPurchases.productFormatSize' => function ($q) {
+                $q->withTrashed();
+            }])
+            ->with(['productPurchases.productFormatSize.product' => function ($q) {
+                $q->withTrashed();
+            }])
+            ->with('productPurchases.productFormatSize.format')
+            ->with(['productPurchases.productFormatSize.size' => function ($q) {
+                $q->withTrashed();
+            }])->orderBy('id', 'desc')->count();
 
-            return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);
+            return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount, "dataAmount" => $dataAmount]);
 
         }catch(\Exception $e){
             return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);

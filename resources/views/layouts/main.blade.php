@@ -34,6 +34,20 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />-->
 		<link rel="icon" type="image/png" href="https://www.aidacaceresart.com/comingSoon/img/favicon.jpeg" />
 
+		<script>
+
+			function toggleUserOptions(){
+				
+				if($("#user-options-menu").hasClass("show")){
+					$("#user-options-menu").removeClass("show")
+				}else{
+					$("#user-options-menu").addClass("show")
+				}
+
+			}
+
+		</script>
+
 		<style>
 
 			.loader-cover-custom{
@@ -217,12 +231,12 @@ License: You must have a valid license purchased only from themeforest(the above
 									</div>
 								</li>
 
-								<li class="menu-item" aria-haspopup="true">
+								{{--<li class="menu-item" aria-haspopup="true">
 									<a href="{{ route('logout') }}" class="menu-link">
 										<i class="menu-icon flaticon-web"></i>
 										<span class="menu-text">Cerrar Sesión</span>
 									</a>
-								</li>
+								</li>--}}
 
 								
 							</ul>
@@ -253,13 +267,22 @@ License: You must have a valid license purchased only from themeforest(the above
 								
 								<!--begin::User-->
 								<div class="topbar-item">
-									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle" onclick="toggleUserOptions()">
 										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hello,</span>
 										<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ \Auth::user()->name }}</span>
 										<!--<span class="symbol symbol-35 symbol-light-success">
 											<span class="symbol-label font-size-h5 font-weight-bold"></span>
 										</span>-->
 									</div>
+									<!--begin::Dropdown-->
+									<div id="user-options-menu" class="dropdown-menu" style="right: 0; float:right !important; left: unset; padding-left: 1rem; padding-bottom: 1rem;">
+										<!--begin:Header-->
+										
+											<a href="{{ url('/logout') }}" class="btn btn-success btn-sm font-weight-bold font-size-sm mt-2">Cerrar sesión</a>
+										
+										<!--end:Nav-->
+									</div>
+									<!--end::Dropdown-->
 								</div>
 								<!--end::User-->
 							</div>
@@ -280,17 +303,12 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!--begin::Container-->
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
-							<div class="text-dark order-2 order-md-1">
+							<div class="text-dark text-center" style="width: 100%;">
 								<span class="text-muted font-weight-bold mr-2">2020 - 2021©</span>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Aida Caceres Art Copyright</a>
+								<a href="h#" target="_blank" class="text-dark-75 text-hover-primary">Aida Caceres Art Copyright</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Nav-->
-							<div class="nav nav-dark">
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-5">About</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-5">Team</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-0">Contact</a>
-							</div>
 							<!--end::Nav-->
 						</div>
 						<!--end::Container-->
