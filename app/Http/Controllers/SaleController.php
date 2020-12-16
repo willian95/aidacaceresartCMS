@@ -23,7 +23,7 @@ class SaleController extends Controller
             $dataAmount = 20;
             $skip = ($page - 1) * $dataAmount;
 
-            $shoppings = Payment::with("productPurchases", "user", "user.country", "guestUser", "guestUser.country")
+            $shoppings = Payment::with("user", "user.country", "guestUser", "guestUser.country")
             ->with(['productPurchases.productFormatSize' => function ($q) {
                 $q->withTrashed();
             }])
@@ -32,9 +32,10 @@ class SaleController extends Controller
             }])
             ->with(['productPurchases.productFormatSize.size' => function ($q) {
                 $q->withTrashed();
-            }])->orderBy('id', 'desc')->skip($skip)->take($dataAmount)->get();
+            }])
+            ->orderBy('id', 'desc')->skip($skip)->take($dataAmount)->get();
 
-            $shoppingsCount = Payment::with("productPurchases", "user", "guestUser")
+            $shoppingsCount = Payment::with("user", "guestUser")
             ->with(['productPurchases.productFormatSize' => function ($q) {
                 $q->withTrashed();
             }])
