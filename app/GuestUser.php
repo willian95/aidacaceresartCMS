@@ -13,7 +13,7 @@ class GuestUser extends Model
     }
 
     public function country(){
-        return $this->bleongsTo(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
 }
