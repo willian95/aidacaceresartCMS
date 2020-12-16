@@ -242,7 +242,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" v-if="shopping.tracking == 0">
                                     <h3 class="text-center">Enviar tracking</h3>
                                     <div class="form-group">
                                         <input class="form-control" v-model="trackingNumber">
