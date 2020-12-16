@@ -61,6 +61,8 @@ class SaleController extends Controller
 
             $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size", "productFormatSize.format")->has("productFormatSize")->get();
 
+            return response()->json($products);
+
             $payment = Payment::where("id", $request->paymentId)->first();
             $payment->tracking = $request->tracking;
             $payment->update();
