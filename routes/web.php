@@ -67,3 +67,5 @@ Route::get("/sales/fetch/{fetch}", "SaleController@fetch");
 
 Route::get("/home-video", "VideoController@index")->name("home.video");
 Route::post("/home-video/update", "VideoController@update");
+
+Route::post("send/tracking", "SaleController@sendTracking");

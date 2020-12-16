@@ -124,6 +124,7 @@
                                     <td>@{{ dateFormatter(shopping.created_at.toString().substring(0, 10)) }}</td>
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingModal" @click="show(shopping)"><i class="far fa-eye"></i></button>
+                                        
                                     </td>
                                 </tr>
                             </tbody>
@@ -185,18 +186,30 @@
                                     <p v-if="shopping.guest_user">@{{ shopping.guest_user.email }}</p>
                                 </div>
                                 <div class="col-md-6">
+                                    <label><strong>Teléfono</strong></label>
+                                    <p v-if="shopping.user">@{{ shopping.user.phone }}</p>
+                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.phone }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><strong>Dirección</strong></label>
+                                    <p v-if="shopping.user">@{{ shopping.user.address }}</p>
+                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.address }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><strong>País</strong></label>
+                                    <p v-if="shopping.user">@{{ shopping.user.country.name }}</p>
+                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.country.name }}</p>
+                                </div>
+                                <div class="col-md-6">
                                     <label><strong>Costo productos</strong></label>
                                     <p>$ @{{ currencyFormatDE(shopping.total_products) }}</p>
                                 </div>
-                                <div class="col-md-6">
-                                    <label><strong>Costo envío</strong></label>
-                                    <p>$ @{{ currencyFormatDE(shopping.shipping_cost) }}</p>
-                                </div>
+                                
                                 <div class="col-md-6">
                                     <label><strong>Total</strong></label>
                                     <p>$ @{{ currencyFormatDE(shopping.total) }}</p>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" v-if="shopping.tracking != 0">
                                     <label><strong>Tracking</strong></label>
                                     <p>
                                     <a :href="shopping.tracking_url">@{{ shopping.tracking }}</a>
@@ -219,7 +232,7 @@
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Precio</th>
-                                                <th>Tipo</th>
+                                           
                                                 <th>Tamaño</th>
                                             </tr>
                                         </thead>
@@ -227,11 +240,20 @@
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_format_size.product.name }}</td>
                                                 <td>$ @{{ currencyFormatDE(shoppingPurchase.price) }}</td>
-                                                <td>@{{ shoppingPurchase.product_format_size.format.name }}</td>
                                                 <td>@{{ shoppingPurchase.product_format_size.size.width }}cm * @{{ shoppingPurchase.product_format_size.size.height }}cm</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <h3 class="text-center">Enviar tracking</h3>
+                                    <div class="form-group">
+                                        <input class="form-control">
+                                    </div>
+                                    <p class="text-center">
+                                        <button class="btn btn-primary" v-if="shopping.user" @click="sendTracking(shopping.user.email, 'auth')">Enviar</button>
+                                        <button class="btn btn-primary" v-if="shopping.guest_user" @click="sendTracking(shopping.user.email, 'guest')">Enviar</button>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -258,6 +280,7 @@
                     shoppings:[],
                     pages:0,
                     page:1,
+                    sendTracking:"",
                     loading:false,
                     showMenu:false
                 }
@@ -314,6 +337,44 @@
                         $("#menu").removeClass("show")
                         this.showMenu = false
                     }
+
+                },
+                sendTracking(email, user, paymentId){
+
+                    if(this.sendTracking == ""){
+
+                        swal({
+                            title:"Lo sentimos",
+                            text:"Debe agregar un tracking",
+                            icon: "error"
+                        })
+
+                    }else{
+                        axios.post("{{ url('send/tracking') }}", {email: email, tracking: this.sendTracking, user: user, paymentId: paymentId}).then(res => {
+
+                            if(res.data.success == true){
+
+                                swal({
+                                    title:"Genial",
+                                    text:res.data.msg,
+                                    icon: "success"
+                                })
+
+                                this.sendTracking = ""
+
+                            }else{
+
+                                swal({
+                                    title:"Lo sentimos",
+                                    text:res.data.msg,
+                                    icon: "error"
+                                })
+
+                            }
+
+                        })
+                    }
+                    
 
                 }
 

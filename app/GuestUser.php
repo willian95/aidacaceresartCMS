@@ -12,4 +12,8 @@ class GuestUser extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function country(){
+        return $this->bleongsTo(Country::class);
+    }
+
 }

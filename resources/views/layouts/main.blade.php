@@ -87,7 +87,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 			<!--begin::Logo-->
 			<a href="{{ url('/') }}">
-				<img alt="Logo" class="w-45px" src="{{ asset('assets/media/logos/logo-letter-13.png') }}" />
+				<img alt="Logo" class="w-45px" src="https://www.aidacaceresart.com/comingSoon/img/favicon.jpeg" />
 			</a>
 			<!--end::Logo-->
 			<!--begin::Toolbar-->
@@ -130,7 +130,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="brand flex-column-auto" id="kt_brand">
 						<!--begin::Logo-->
 						<a href="{{ url('/') }}" class="brand-logo">
-							<img alt="Logo" class="w-65px" src="{{ asset('assets/media/logos/logo-letter-13.png') }}" />
+							<img alt="Logo" class="w-65px" src="https://www.aidacaceresart.com/comingSoon/img/favicon.jpeg" />
 						</a>
 						<!--end::Logo-->
 					</div>
