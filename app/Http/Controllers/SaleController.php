@@ -59,7 +59,11 @@ class SaleController extends Controller
 
         try{
 
-            $products = ProductPurchase::where("payment_id", $request->payment_id)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size", "productFormatSize.format")->has("productFormatSize")->get();
+            $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size", "productFormatSize.format")->has("productFormatSize")->get();
+
+            $payment = Payment::where("id", $request->paymentId)->first();
+            $payment->tracking = $request->tracking;
+            $payment->update();
 
             $user = null;
             if($request->user == 'auth'){
