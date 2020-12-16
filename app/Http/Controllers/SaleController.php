@@ -59,9 +59,9 @@ class SaleController extends Controller
 
         try{
 
-            $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size", "productFormatSize.format")->has("productFormatSize")->get();
+            $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size")->has("productFormatSize")->get();
 
-            //return response()->json($products);
+            return response()->json($products);
 
             $payment = Payment::where("id", $request->paymentId)->first();
             $payment->tracking = $request->tracking;
@@ -85,6 +85,7 @@ class SaleController extends Controller
 
             });
 
+            return response()->json(["success" => true, "Notificación enviada al cliente"]);
 
         }catch(\Exception $e){
             return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
