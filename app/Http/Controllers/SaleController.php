@@ -30,7 +30,6 @@ class SaleController extends Controller
             ->with(['productPurchases.productFormatSize.product' => function ($q) {
                 $q->withTrashed();
             }])
-            ->with('productPurchases.productFormatSize.format')
             ->with(['productPurchases.productFormatSize.size' => function ($q) {
                 $q->withTrashed();
             }])->orderBy('id', 'desc')->skip($skip)->take($dataAmount)->get();
@@ -42,7 +41,6 @@ class SaleController extends Controller
             ->with(['productPurchases.productFormatSize.product' => function ($q) {
                 $q->withTrashed();
             }])
-            ->with('productPurchases.productFormatSize.format')
             ->with(['productPurchases.productFormatSize.size' => function ($q) {
                 $q->withTrashed();
             }])->orderBy('id', 'desc')->count();
