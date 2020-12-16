@@ -59,7 +59,7 @@ class SaleController extends Controller
 
         try{
 
-            $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product")->has("productFormatSize")->get();
+            $products = ProductPurchase::where("payment_id", $request->paymentId)->with("productFormatSize", "productFormatSize.product", "productFormatSize.size")->has("productFormatSize")->get();
 
             return response()->json($products);
 
