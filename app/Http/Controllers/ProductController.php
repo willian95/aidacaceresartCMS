@@ -156,7 +156,7 @@ class ProductController extends Controller
 
         foreach($request->productFormatSizes as $test){
 
-            if($test["size"] == null || $test["format"] == null || $test["price"] == null){
+            if($test["size"] == null || $test["price"] == null){
                 //return response()->json($test["format"]["name"]);
                 return response()->json(["success" => false, "msg" => "Debe completar todos los campos de las presentaciones"]);
             }
