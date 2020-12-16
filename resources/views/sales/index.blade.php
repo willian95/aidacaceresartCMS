@@ -219,10 +219,7 @@
                                     <label>Status tracing</label>
                                     <p>@{{ shopping.status_shipping }}</p>
                                 </div>-->
-                                <div class="col-md-6">
-                                    <label><strong>Dirección</strong></label>
-                                    <p>@{{ shopping.address }}</p>
-                                </div>
+                                
                                 <div class="col-md-12">
                                     <h3 class="text-center">Productos</h3>
                                 </div>
@@ -341,7 +338,7 @@
                 },
                 sendTracking(email, user, paymentId){
 
-                    if(this.sendTracking == ""){
+                    if(this.trackingNumber == ""){
 
                         swal({
                             title:"Lo sentimos",
