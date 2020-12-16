@@ -358,8 +358,8 @@
                                     icon: "success"
                                 })
 
-                                this.sendTracking = ""
-
+                                this.trackingNumber = ""
+                                window.location.reload()
                             }else{
 
                                 swal({
