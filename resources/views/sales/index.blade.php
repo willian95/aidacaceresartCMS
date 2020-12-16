@@ -350,8 +350,9 @@
                         })
 
                     }else{
+                        this.loading = true
                         axios.post("{{ url('send/tracking') }}", {email: email, tracking: this.trackingNumber, user: user, paymentId: paymentId}).then(res => {
-
+                            this.loading=false
                             if(res.data.success == true){
 
                                 swal({
