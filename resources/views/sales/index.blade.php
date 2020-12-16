@@ -248,11 +248,11 @@
                                 <div class="col-md-12">
                                     <h3 class="text-center">Enviar tracking</h3>
                                     <div class="form-group">
-                                        <input class="form-control">
+                                        <input class="form-control" v-model="trackingNumber">
                                     </div>
                                     <p class="text-center">
-                                        <button class="btn btn-primary" v-if="shopping.user" @click="sendTracking(shopping.user.email, 'auth')">Enviar</button>
-                                        <button class="btn btn-primary" v-if="shopping.guest_user" @click="sendTracking(shopping.user.email, 'guest')">Enviar</button>
+                                        <button class="btn btn-primary" v-if="shopping.user" @click="sendTracking(shopping.user.email, 'auth', shopping.id)">Enviar</button>
+                                        <button class="btn btn-primary" v-if="shopping.guest_user" @click="sendTracking(shopping.user.email, 'guest', shopping.id)">Enviar</button>
                                     </p>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
                     shoppings:[],
                     pages:0,
                     page:1,
-                    sendTracking:"",
+                    trackingNumber:"",
                     loading:false,
                     showMenu:false
                 }
@@ -350,7 +350,7 @@
                         })
 
                     }else{
-                        axios.post("{{ url('send/tracking') }}", {email: email, tracking: this.sendTracking, user: user, paymentId: paymentId}).then(res => {
+                        axios.post("{{ url('send/tracking') }}", {email: email, tracking: this.trackingNumber, user: user, paymentId: paymentId}).then(res => {
 
                             if(res.data.success == true){
 
