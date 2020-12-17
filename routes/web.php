@@ -50,6 +50,8 @@ Route::post("/admin-email/delete", "AdminMailController@delete");
 
 Route::get("/clients", "UserController@index")->name("client");
 Route::get("/clients/fetch/{page}", "UserController@fetch");
+Route::get("/clients/excel", "UserController@excelExport");
+Route::get("/clients/csv", "UserController@csvExport");
 
 Route::get("/products/create", "ProductController@create")->name("product.create");
 Route::get("/products/list", "ProductController@list")->name("product.list");
@@ -64,6 +66,8 @@ Route::post("/newsletter/store", "NewsLetterController@store");
 
 Route::get("/sales", "SaleController@index")->name("sales");
 Route::get("/sales/fetch/{fetch}", "SaleController@fetch");
+Route::get("/sales/excel", "SaleController@excelExport");
+Route::get("/sales/csv", "SaleController@csvExport");
 
 Route::get("/home-video", "VideoController@index")->name("home.video");
 Route::post("/home-video/update", "VideoController@update");

@@ -9,8 +9,16 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="text-center">Ventas: 
-                            {{ App\Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
-                ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")->count() }}
+                            {{ App\Payment::with("user", "guestUser")
+            ->with(['productPurchases.productFormatSize' => function ($q) {
+                $q->withTrashed();
+                $q->with(['product' => function ($k) {
+                    $k->withTrashed();
+                }]);
+                $q->with(['size' => function ($k) {
+                    $k->withTrashed();
+                }]);
+            }])->orderBy('id', 'desc')->count() }}
                             </h3>
                             
                         </div>
@@ -66,9 +74,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(App\Payment::with("productPurchases", "user", "guestUser", "productPurchases.productFormatSize", "productPurchases.productFormatSize.product", "productPurchases.productFormatSize.format", "productPurchases.productFormatSize.size")->has("productPurchases")
-                ->has("productPurchases.productFormatSize")->has( "productPurchases.productFormatSize.product")->has( "productPurchases.productFormatSize.format")->has( "productPurchases.productFormatSize.size")
-                ->take(10)->orderBy('id', 'desc')->get() as $payment)
+                                    @foreach(App\Payment::with("user", "user.country", "guestUser", "guestUser.country")
+            ->with(['productPurchases.productFormatSize' => function ($q) {
+                $q->withTrashed();
+                $q->with(['product' => function ($k) {
+                    $k->withTrashed();
+                }]);
+                $q->with(['size' => function ($k) {
+                    $k->withTrashed();
+                }]);
+            }])
+            ->orderBy('id', 'desc')->take(10)->get() as $payment)
                                     <tr>
                                         <th>{{ $payment->order_id }}</th>
                                         @if($payment->user)

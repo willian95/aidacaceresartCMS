@@ -8,6 +8,9 @@ use App\User;
 use App\GuestUser;
 use App\ProductPurchase;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SalesExport;
+
 class SaleController extends Controller
 {
     function index(){
@@ -26,24 +29,24 @@ class SaleController extends Controller
             $shoppings = Payment::with("user", "user.country", "guestUser", "guestUser.country")
             ->with(['productPurchases.productFormatSize' => function ($q) {
                 $q->withTrashed();
-            }])
-            ->with(['productPurchases.productFormatSize.product' => function ($q) {
-                $q->withTrashed();
-            }])
-            ->with(['productPurchases.productFormatSize.size' => function ($q) {
-                $q->withTrashed();
+                $q->with(['product' => function ($k) {
+                    $k->withTrashed();
+                }]);
+                $q->with(['size' => function ($k) {
+                    $k->withTrashed();
+                }]);
             }])
             ->orderBy('id', 'desc')->skip($skip)->take($dataAmount)->get();
 
             $shoppingsCount = Payment::with("user", "guestUser")
             ->with(['productPurchases.productFormatSize' => function ($q) {
                 $q->withTrashed();
-            }])
-            ->with(['productPurchases.productFormatSize.product' => function ($q) {
-                $q->withTrashed();
-            }])
-            ->with(['productPurchases.productFormatSize.size' => function ($q) {
-                $q->withTrashed();
+                $q->with(['product' => function ($k) {
+                    $k->withTrashed();
+                }]);
+                $q->with(['size' => function ($k) {
+                    $k->withTrashed();
+                }]);
             }])->orderBy('id', 'desc')->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount, "dataAmount" => $dataAmount]);
@@ -89,5 +92,14 @@ class SaleController extends Controller
         }
 
     }
+
+    function excelExport(){
+        return Excel::download(new SalesExport, 'ventas.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new SalesExport, 'ventas.csv');
+    }
+    
 
 }
