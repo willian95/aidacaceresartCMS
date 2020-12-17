@@ -208,7 +208,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="size">Tamaño</label>
+                                    <label for="size">Tamaño (Ancho X Altura)</label>
                                     <div style="display:flex;">
                                         <select id="type" class="form-control" v-model="size">
                                             <option :value="size" v-for="size in sizes">@{{ size.width }}cm X @{{ size.height }}cm</option>
