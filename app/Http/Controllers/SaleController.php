@@ -76,11 +76,11 @@ class SaleController extends Controller
 
             $to_name = $user->name;
             $to_email = $user->email;
-            $data = ["user" => $user, "products" => $products, "tracking" => $request->tracking];
+            $data = ["user" => $user, "products" => $products, "tracking" => $request->tracking, "payment" => $payment];
 
             \Mail::send("emails.tracking", $data, function($message) use ($to_name, $to_email) {
 
-                $message->to($to_email, $to_name)->subject("¡Tracking de tu compra en Aidacaceresart.com!");
+                $message->to($to_email, $to_name)->subject("Order Shipped. Track your order!");
                 $message->from(env("MAIL_FROM_ADDRESS"), env("MAIL_FROM_NAME"));
 
             });

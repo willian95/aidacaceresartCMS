@@ -100,15 +100,34 @@ td .es-button-border-2:hover {
                       <td align="center" style="padding:0;Margin:0;font-size:0px;"><img class="adapt-img" src="https://www.aidacaceresart.com/assets/img/logo-blue.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;object-fit: contain;" width="200" height="133"></td> 
                      </tr> 
                      <tr style="border-collapse:collapse;"> 
-                      <td align="center" style="padding:0;Margin:0;"><h1 style="Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;font-size:20px;font-style:normal;font-weight:bold;color:#0c4572;">{{ $tracking }} </h1></td> 
+                      <td align="center" style="padding:0;Margin:0;"><h1 style="Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;font-size:20px;font-style:normal;font-weight:bold;color:#0c4572;">Sigue tu orden copiando este # de seguimiento de DHL - Track your order by copying the tracking # from DHL </h1></td> 
+
+                      <tr>
+                        <td>Name: {{ $user->name }}</td>
+                      </tr>
+                      <tr>
+                      <td>Total: {{ $payment->total_products }}</td>
+                      </tr>
+                      <tr>
+                        <td>Email: {{ $user->email }}</td>
+                      </tr>
+                      <tr>
+                      <td>Address: {{ $user->address }}</td>
+                      </tr>
+                      <tr>
+                        <td>Paypal #: {{ $payment->order_id }}</td>
+                      </tr>
+
+                      <td align="center" style="padding:10px;Margin:0;"><span class="es-button-border es-button-border-2" style="border-style:solid;border-color:#2CB543;background:#0c4572;border-width:0px;display:inline-block;border-radius:20px;width:auto;"><a href="https://www.dhl.com/co-es/home/rastreo.html" class="es-button es-button-1" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:16px;color:#FFFFFF;border-style:solid;border-color:#0c4572;border-width:10px 20px 10px 20px;display:inline-block;background:#0c4572;border-radius:20px;font-weight:normal;font-style:normal;line-height:19px;width:auto;text-align:center;">DHL</a></span></td> 
                      </tr> 
                      <td align="left" style="Margin:0;padding-bottom:15px;padding-top:30px;padding-left:30px;padding-right:30px;border-radius:10px 10px 0px 0px;background-color:#FFFFFF;" bgcolor="#ffffff">
                       <table ellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;">
                       <tr style="border: 1px solid black; border-collapse:collapse">
                         <th style="border: 1px solid black;border-collapse:collapse">#</th>
-                        <th style="border: 1px solid black;border-collapse:collapse">Imagen</th>
-                        <th style="border: 1px solid black;border-collapse:collapse">Producto</th>
-                        <th style="border: 1px solid black;border-collapse:collapse">Precio</th>
+                        <th style="border: 1px solid black;border-collapse:collapse">Cuadro - Art</th>
+                        <th style="border: 1px solid black;border-collapse:collapse">Cantidad - Qty</th>
+                        <th style="border: 1px solid black;border-collapse:collapse">Producto - Product</th>
+                        <th style="border: 1px solid black;border-collapse:collapse">Precio - Price</th>
                       </tr>
 
                       @foreach($products as $product)
@@ -116,6 +135,7 @@ td .es-button-border-2:hover {
                         <tr style="border: 1px solid black; border-collapse:collapse">
                             <td style="border: 1px solid black; border-collapse:collapse; text-align:center">{{ $loop->index + 1 }}</td>
                             <td style="border: 1px solid black; border-collapse:collapse; text-align:center"><img src="{{ $product['productFormatSize']['product']['image'] }}" style="width: 60px;"></td>
+                            <td>1</td>
                             <td style="border: 1px solid black; border-collapse:collapse; text-align:center">{{ $product["productFormatSize"]["product"]["name"] }} </td>
                             <td style="border: 1px solid black; border-collapse:collapse; text-align:center">$ {{ number_format($product["productFormatSize"]["price"], 0, ",", ".") }}</td>
                         </tr>

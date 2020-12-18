@@ -143,101 +143,101 @@
 
         <!-- Modal-->
         <div class="modal fade" id="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Información</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i aria-hidden="true" class="ki ki-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" v-if="shopping != ''">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label><strong>Cliente</strong></label>
-                                    <p v-if="shopping.user">@{{ shopping.user.name }}</p>
-                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.name }}</p>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" v-if="shopping != ''">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label><strong>Cliente</strong></label>
+                                <p v-if="shopping.user">@{{ shopping.user.name }}</p>
+                                <p v-if="shopping.guest_user">@{{ shopping.guest_user.name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>Email</strong></label>
+                                <p v-if="shopping.user">@{{ shopping.user.email }}</p>
+                                <p v-if="shopping.guest_user">@{{ shopping.guest_user.email }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>Teléfono</strong></label>
+                                <p v-if="shopping.user">@{{ shopping.user.phone }}</p>
+                                <p v-if="shopping.guest_user">@{{ shopping.guest_user.phone }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>Dirección</strong></label>
+                                <p v-if="shopping.user">@{{ shopping.user.address }}</p>
+                                <p v-if="shopping.guest_user">@{{ shopping.guest_user.address }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>País</strong></label>
+                                <p v-if="shopping.user">@{{ shopping.user.country.name }}</p>
+                                <p v-if="shopping.guest_user">@{{ shopping.guest_user.country.name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>Costo productos</strong></label>
+                                <p>$ @{{ currencyFormatDE(shopping.total_products) }}</p>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label><strong>Total</strong></label>
+                                <p>$ @{{ currencyFormatDE(shopping.total) }}</p>
+                            </div>
+                            <div class="col-md-6" v-if="shopping.tracking != 0">
+                                <label><strong>Tracking</strong></label>
+                                <p>
+                                <a :href="shopping.tracking_url">@{{ shopping.tracking }}</a>
+                                </p>
+                            </div>
+                            <!--<div class="col-md-6">
+                                <label>Status tracing</label>
+                                <p>@{{ shopping.status_shipping }}</p>
+                            </div>-->
+                            
+                            <div class="col-md-12">
+                                <h3 class="text-center">Productos</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-checkable">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Precio</th>
+                                        
+                                            <th>Tamaño</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
+                                            <td>@{{ shoppingPurchase.product_format_size.product.name }}</td>
+                                            <td>$ @{{ currencyFormatDE(shoppingPurchase.price) }}</td>
+                                            <td>@{{ shoppingPurchase.product_format_size.size.width }}cm * @{{ shoppingPurchase.product_format_size.size.height }}cm</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12" v-if="shopping.tracking == 0">
+                                <h3 class="text-center">Enviar tracking</h3>
+                                <div class="form-group">
+                                    <input class="form-control" v-model="trackingNumber">
                                 </div>
-                                <div class="col-md-6">
-                                    <label><strong>Email</strong></label>
-                                    <p v-if="shopping.user">@{{ shopping.user.email }}</p>
-                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.email }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><strong>Teléfono</strong></label>
-                                    <p v-if="shopping.user">@{{ shopping.user.phone }}</p>
-                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.phone }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><strong>Dirección</strong></label>
-                                    <p v-if="shopping.user">@{{ shopping.user.address }}</p>
-                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.address }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><strong>País</strong></label>
-                                    <p v-if="shopping.user">@{{ shopping.user.country.name }}</p>
-                                    <p v-if="shopping.guest_user">@{{ shopping.guest_user.country.name }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><strong>Costo productos</strong></label>
-                                    <p>$ @{{ currencyFormatDE(shopping.total_products) }}</p>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label><strong>Total</strong></label>
-                                    <p>$ @{{ currencyFormatDE(shopping.total) }}</p>
-                                </div>
-                                <div class="col-md-6" v-if="shopping.tracking != 0">
-                                    <label><strong>Tracking</strong></label>
-                                    <p>
-                                    <a :href="shopping.tracking_url">@{{ shopping.tracking }}</a>
-                                    </p>
-                                </div>
-                                <!--<div class="col-md-6">
-                                    <label>Status tracing</label>
-                                    <p>@{{ shopping.status_shipping }}</p>
-                                </div>-->
-                                
-                                <div class="col-md-12">
-                                    <h3 class="text-center">Productos</h3>
-                                </div>
-                                <div class="col-md-12">
-                                    <table class="table table-bordered table-checkable">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Precio</th>
-                                           
-                                                <th>Tamaño</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
-                                                <td>@{{ shoppingPurchase.product_format_size.product.name }}</td>
-                                                <td>$ @{{ currencyFormatDE(shoppingPurchase.price) }}</td>
-                                                <td>@{{ shoppingPurchase.product_format_size.size.width }}cm * @{{ shoppingPurchase.product_format_size.size.height }}cm</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-md-12" v-if="shopping.tracking == 0">
-                                    <h3 class="text-center">Enviar tracking</h3>
-                                    <div class="form-group">
-                                        <input class="form-control" v-model="trackingNumber">
-                                    </div>
-                                    <p class="text-center">
-                                        <button class="btn btn-primary" v-if="shopping.user" @click="sendTracking(shopping.user.email, 'auth', shopping.id)">Enviar</button>
-                                        <button class="btn btn-primary" v-if="shopping.guest_user" @click="sendTracking(shopping.user.email, 'guest', shopping.id)">Enviar</button>
-                                    </p>
-                                </div>
+                                <p class="text-center">
+                                    <button class="btn btn-primary" v-if="shopping.user" @click="sendTracking(shopping.user.email, 'auth', shopping.id)">Enviar</button>
+                                    <button class="btn btn-primary" v-if="shopping.guest_user" @click="sendTracking(shopping.user.email, 'guest', shopping.id)">Enviar</button>
+                                </p>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
+        </div>
 
     </div>
 
