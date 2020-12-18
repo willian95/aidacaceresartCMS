@@ -106,7 +106,7 @@ td .es-button-border-2:hover {
                         <td>Name: {{ $user->name }}</td>
                       </tr>
                       <tr>
-                      <td>Total: {{ $payment->total_products }}</td>
+                      <td>Total: $ {{ number_format($payment->total_products, 0, ",", ".") }}</td>
                       </tr>
                       <tr>
                         <td>Email: {{ $user->email }}</td>

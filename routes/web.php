@@ -73,3 +73,9 @@ Route::get("/home-video", "VideoController@index")->name("home.video");
 Route::post("/home-video/update", "VideoController@update");
 
 Route::post("send/tracking", "SaleController@sendTracking");
+
+Route::get("blog", "BlogController@index")->name("blogs");
+Route::get("blog/fetch", "BlogController@fetch");
+Route::post("blog/store", "BlogController@store");
+Route::post("blog/update", "BlogController@update");
+Route::post("blog/delete", "BlogController@delete");
