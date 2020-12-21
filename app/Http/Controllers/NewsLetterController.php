@@ -8,6 +8,9 @@ use App\User;
 use App\NewsletterEmail;
 use App\NewsletterUser;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NewsletterExport;
+
 class NewsLetterController extends Controller
 {
     
@@ -67,6 +70,14 @@ class NewsLetterController extends Controller
             return response()->json(["success" => false, "msg" => "hubo un problema", "err" => $e->getMessage(), "ln" => $e->getLine()]);
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new NewsletterExport, 'newsletter.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new NewsletterExport, 'newsletter.csv');
     }
 
 }
