@@ -63,6 +63,16 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="scale">Imagen escala</label>
+                                <input type="file" class="form-control" ref="file2" @change="onScaleImageChange" accept="image/*">
+
+                                <img id="blah" :src="scaleViewPreview" class="full-image" style="margin-top: 10px; width: 40%">
+                                <small v-if="errors.hasOwnProperty('scaleImage')">@{{ errors['scaleImage'][0] }}</small>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Descripción</label>
@@ -335,6 +345,8 @@
                     size:"",
                     picture:"",
                     imagePreview:"{{ $product->image }}",
+                    scaleView:"",
+                    scaleViewPreview:"{{ $product->scale_view }}",
                     category:"{{ $product->category->id }}",
                     name:"{{ $product->name }}",
                     description:"{{ $product->description }}",
@@ -363,13 +375,13 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish}).then(res => {
+                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish, scaleImage: this.scaleView}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 
                                 swal({
                                     title: "Excelente!",
-                                    text: "Producto creado!",
+                                    text: "Producto actualizado!",
                                     icon: "success"
                                 }).then(function() {
                                     window.location.href = "{{ url('/home') }}";
@@ -396,6 +408,23 @@
 
                     }
 
+                },
+                onScaleImageChange(e){
+                    this.scaleView = e.target.files[0];
+
+                    this.scaleViewPreview = URL.createObjectURL(this.scaleView);
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+                    this.createScaleImage(files[0]);
+                },
+                createScaleImage(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.scaleView = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
                 },
                 onImageChange(e){
                     this.picture = e.target.files[0];

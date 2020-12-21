@@ -63,6 +63,32 @@ class ProductController extends Controller
 
         try{
 
+            $imageData = $request->get('scaleImage');
+
+            if(strpos($imageData, "svg+xml") > 0){
+
+                $data = explode( ',', $imageData);
+                $fileNameScale = Carbon::now()->timestamp . '_' . uniqid() . '.'."svg";
+                $ifp = fopen($fileNameScale, 'wb' );
+                fwrite($ifp, base64_decode( $data[1] ) );
+                rename($fileNameScale, 'images/products/'.$fileNameScale);
+
+            }else{
+
+                $fileNameScale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+                Image::make($request->get('scaleImage'))->save(public_path('images/products/').$fileNameScale);
+
+            }
+            
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Hubo un problema con la imagen", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+        }
+
+        try{
+
             $slug = str_replace(" ","-", $request->name);
             $slug = str_replace("/", "-", $slug);
 
@@ -80,6 +106,7 @@ class ProductController extends Controller
             $product->description = $sanitizedDescription;
             $product->english_description = $sanitizedDescriptionEnglish;
             $product->image = url('/').'/images/products/'.$fileName;
+            $product->scale_view = url('/').'/images/products/'.$fileNameScale;
             $product->slug = $slug;
             $product->show_on_carousel = $request->showOnCarousel;
             $product->save();
@@ -193,6 +220,34 @@ class ProductController extends Controller
 
         }
 
+        if($request->get("scaleImage") != null){
+            try{
+
+                $imageData = $request->get('scaleImage');
+
+                if(strpos($imageData, "svg+xml") > 0){
+
+                    $data = explode( ',', $imageData);
+                    $fileNameScale = Carbon::now()->timestamp . '_' . uniqid() . '.'."svg";
+                    $ifp = fopen($fileNameScale, 'wb' );
+                    fwrite($ifp, base64_decode( $data[1] ) );
+                    rename($fileName, 'images/products/'.$fileNameScale);
+
+                }else{
+
+                    $fileNameScale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+                    Image::make($request->get('scaleImage'))->save(public_path('images/products/').$fileNameScale);
+
+                }
+                
+
+            }catch(\Exception $e){
+
+                return response()->json(["success" => false, "msg" => "Hubo un problema con la imagen", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+            }
+        }
+
 
         try{
 
@@ -208,6 +263,9 @@ class ProductController extends Controller
             $product->english_description = $sanitizedDescriptionEnglish;
             if($request->get("image") != null){
                 $product->image =  url('/').'/images/products/'.$fileName;
+            }
+            if($request->get("scaleImage") != null){
+                $product->scale_view =  url('/').'/images/products/'.$fileNameScale;
             }
             $product->update();
 
