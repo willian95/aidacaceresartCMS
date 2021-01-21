@@ -122,7 +122,11 @@
                             <tbody>
                                 <tr v-for="product in products">
                                     <td class="datatable-cell">
-                                        @{{ product.name }}
+                                        @{{ product.name }} 
+
+                                        <span v-if="product.is_sold == 1">
+                                            (vendido)
+                                        </span>
                                     </td>
                                     <td>
                                         @{{ product.category.name }}
