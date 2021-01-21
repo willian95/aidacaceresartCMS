@@ -96,6 +96,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-2">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="isSoldCheck" v-model="isSoldCheck">
+                                <label class="form-check-label" for="isSoldCheck">¿Está vendido?</label>
+                            </div>
+                        </div>
+
                         
 
 
@@ -366,6 +373,7 @@
                     formatErrors:[],
                     sizeErrors:[],
                     errors:[],
+                    isSoldCheck:JSON.parse("{{ $product->is_sold }}"),
                     loading:false
                 }
             },
@@ -375,7 +383,7 @@
 
                     if(this.productFormatSizes.length > 0){
                         this.loading = true
-                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish, scaleImage: this.scaleView}).then(res => {
+                        axios.post("{{ url('/products/update') }}", {id: this.id,name:this.name, category: this.category, image: this.picture, productFormatSizes: this.productFormatSizes, description: this.description, showOnCarousel: this.showOnCarousel, nameEnglish: this.nameEnglish, descriptionEnglish: this.descriptionEnglish, scaleImage: this.scaleView, isSold: this.isSoldCheck}).then(res => {
                             this.loading = false
                             if(res.data.success == true){
 

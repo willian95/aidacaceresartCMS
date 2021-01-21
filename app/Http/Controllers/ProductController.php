@@ -260,6 +260,7 @@ class ProductController extends Controller
             $product->category_id = $request->category;
             $product->show_on_carousel = $request->showOnCarousel;
             $product->description = $sanitizedDescription;
+            $product->is_sold = $request->isSold;
             $product->english_description = $sanitizedDescriptionEnglish;
             if($request->get("image") != null){
                 $product->image =  url('/').'/images/products/'.$fileName;
