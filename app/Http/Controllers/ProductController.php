@@ -154,7 +154,13 @@ class ProductController extends Controller
             }]);
            
             $products = $query->skip($skip)->take($dataAmount)->get();
-            $productsCount = $query->count();
+            $productsCount = Product::with(['category' => function ($q) {
+                $q->withTrashed();
+            }])->with(['productFormatSizes' => function ($q) {
+                $q->withTrashed();
+            }])->with(['productFormatSizes.size' => function ($q) {
+                $q->withTrashed();
+            }])->count();
 
             return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount, "dataAmount" => $dataAmount]);
 
