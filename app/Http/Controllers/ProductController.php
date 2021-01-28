@@ -142,7 +142,7 @@ class ProductController extends Controller
 
         try{
 
-            $dataAmount = 20;
+            $dataAmount = 10;
             $skip = ($page - 1) * $dataAmount;
 
             $query = Product::with(['category' => function ($q) {
